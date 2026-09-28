@@ -5,7 +5,7 @@ const SearchBar = ()=>{
     const navigate = useNavigate();
     
     const handleLogout = async () => {
-        await fetch("http://localhost:8000/logout", {
+        await fetch("https://internassignment-task-application.onrender.com/logout", {
             method: "POST",
             credentials: "include"
         });

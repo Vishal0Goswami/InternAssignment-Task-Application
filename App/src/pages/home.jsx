@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const PageHome = ()=>{
     const navigate = useNavigate();
-    const API_PATH = "http://localhost:8000";
+    const API_PATH = "https://internassignment-task-application.onrender.com";
 
 
     const [tasks, setTasks] = useState([]);
