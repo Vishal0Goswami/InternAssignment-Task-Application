@@ -6,12 +6,19 @@ const SearchBar = ()=>{
     const navigate = useNavigate();
     
     const handleLogout = async () => {
-        await fetch(`${API_PATH}/logout`, {
-            method: "POST",
-            credentials: "include"
-        });
-
-        navigate("/");
+        try{
+            const response = await fetch(`${API_PATH}/user/logout`, {
+                method: "POST",
+                credentials: "include"
+            });
+     
+            if(response.ok){
+               navigate("/");
+            }
+        } catch(error){
+            console.error(error)
+        }
+     
     };
     return (
         <div className="w-full h-20 border flex justify-between p-5 bg-white">

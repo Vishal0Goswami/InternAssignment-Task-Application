@@ -71,10 +71,9 @@ def logout(response: Response):
         key="access_token",
         path="/",
         httponly=True,
-        secure=False,
-        samesite="lax"
+        secure=settings.COOKIE_SECURE,
+        samesite="lax",
     )
-
     return {"message": "Logged out successfully"}
 
 #-----------------------------------------------Authentication---------------------------------
