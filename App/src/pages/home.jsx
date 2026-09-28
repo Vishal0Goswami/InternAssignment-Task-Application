@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import TableData from "../components/Table";
 import { useNavigate } from "react-router-dom";
+import { API_PATH } from "../components/config";
 
 const PageHome = ()=>{
     const navigate = useNavigate();
-    const API_PATH = "https://internassignment-task-application-1.onrender.com";
 
 
     const [tasks, setTasks] = useState([]);

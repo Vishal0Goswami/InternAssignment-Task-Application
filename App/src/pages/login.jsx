@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { RiGoogleFill } from "@remixicon/react";
+import { API_PATH } from "../components/config";
 
 
 const PageLogin = ()=>{
     const navigate = useNavigate();
-    const API_PATH = "https://internassignment-task-application-1.onrender.com";
 
     
     const [formData, setFormData] = useState({
@@ -81,7 +81,7 @@ const PageLogin = ()=>{
     const handleGoogleLogin = () => {
         try{
              setLoading(true)
-             window.location.href = "https://internassignment-task-application-1.onrender.com/google/login";
+             window.location.href = `${API_PATH}/google/login`;
         }catch(error){
             console.log(error)
         } finally{

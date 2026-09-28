@@ -1,11 +1,12 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import { API_PATH } from "./config";
 
 const SearchBar = ()=>{
     const navigate = useNavigate();
     
     const handleLogout = async () => {
-        await fetch("https://internassignment-task-application-1.onrender.com/logout", {
+        await fetch(`${API_PATH}/logout`, {
             method: "POST",
             credentials: "include"
         });

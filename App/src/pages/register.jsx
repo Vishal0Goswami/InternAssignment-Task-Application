@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { API_PATH } from "../components/config";
 
 const PageRegister = ()=>{
     const navigate = useNavigate();
-    const API_PATH = "https://internassignment-task-application-1.onrender.com";
 
 
     const [formData, setFormData] = useState({

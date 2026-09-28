@@ -20,7 +20,7 @@ app.add_middleware(
 
 app.add_middleware(
    SessionMiddleware,
-   secret_key="this-is-secret-key-one.",
+   secret_key="this-is-secret-key-one.", #hide it
     same_site="none",
     https_only=True
 )

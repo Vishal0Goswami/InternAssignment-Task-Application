@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import {useNavigate} from "react-router-dom"
+import { API_PATH } from "./config";
 
 const TableData = (props)=>{ 
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const TableData = (props)=>{
             try {
                 setLoading(true)
                 const response = await fetch(
-                    `https://internassignment-task-application-1.onrender.com/tasks/isDone/${idx}`,
+                    `${API_PATH}/tasks/isDone/${idx}`,
                     {
                         method: "PATCH",
                         credentials: "include",
