@@ -13,7 +13,7 @@ app_auth = APIRouter()
 
 @app_auth.get("/google/login")
 async def google_login(request: Request):
-    return await oauth.google.authorize_redirect(request, settings.GOOGLE_REDIRECT_URI)
+    return await oauth.google.authorize_redirect(request, settings.GOOGLE_REDIRECT_URL)
 
 
 @app_auth.get("/auth/google/callback", name="google_callback")
