@@ -1,0 +1,68 @@
+from fastapi import APIRouter, Request, Depends, Response
+from sqlalchemy.orm import Session 
+from src.GoogleOAuth.oauth import oauth
+from fastapi.responses import HTMLResponse, RedirectResponse
+from src.users.models import User 
+from src.utils.db import get_db
+import jwt 
+from datetime import datetime, timedelta
+from src.utils.settings import settings
+
+
+app_auth = APIRouter()
+
+
+# @app_auth.get("/", response_class=HTMLResponse)
+# def homes():
+#     return """
+#       <h1>Welcome to Testing WebSide.</h1>
+#       <a href="http://localhost:8000/google/login">login with google</a>
+#     """
+
+
+@app_auth.get("/google/login")
+async def google_login(request:Request):
+    redirect_url = request.url_for( "google_callback")
+    return await oauth.google.authorize_redirect(request, redirect_url)
+
+
+@app_auth.get("/auth/google/callback", name="google_callback")
+async def google_callback(request:Request, response:Response, db:Session = Depends(get_db)):
+    token = await oauth.google.authorize_access_token(request)
+  
+    return login_with_google(token['userinfo'], response, db)
+
+
+def login_with_google(data:dict, response:Response, db:Session):
+    user = db.query(User).filter(User.email == data['email']).first()
+    if not user:
+        user = User(
+            name = data['name'],
+            email = data['email'],
+            google_id = data['sub'],
+            is_oauth = True 
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    exp_time = datetime.now() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    token = jwt.encode({"_id":user.id, "exp":exp_time.timestamp()}, settings.SECRET_KEY, settings.ALGORITHM)
+
+    response = RedirectResponse(
+        url="http://localhost:5173/home",
+        status_code=302
+    )
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        httponly=True, 
+        secure=False, 
+        samesite="lax",
+        max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES*60,
+        path="/"
+    )
+
+
+    return response
+    
