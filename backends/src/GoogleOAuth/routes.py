@@ -12,19 +12,18 @@ from src.utils.settings import settings
 app_auth = APIRouter()
 
 @app_auth.get("/google/login")
-async def google_login(request:Request):
-    redirect_url = request.url_for("google_callback")
-    return await oauth.google.authorize_redirect(request, redirect_url)
+async def google_login(request: Request):
+    return await oauth.google.authorize_redirect(request, settings.GOOGLE_REDIRECT_URI)
 
 
 @app_auth.get("/auth/google/callback", name="google_callback")
-async def google_callback(request:Request, response:Response, db:Session = Depends(get_db)):
+async def google_callback(request:Request, db:Session = Depends(get_db)):
     token = await oauth.google.authorize_access_token(request)
   
-    return login_with_google(token['userinfo'], response, db)
+    return login_with_google(token['userinfo'], db)
 
 
-def login_with_google(data:dict, response:Response, db:Session):
+def login_with_google(data:dict, db:Session):
     user = db.query(User).filter(User.email == data['email']).first()
     if not user:
         user = User(
