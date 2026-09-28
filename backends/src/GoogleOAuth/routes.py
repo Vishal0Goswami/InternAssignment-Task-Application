@@ -11,15 +11,6 @@ from src.utils.settings import settings
 
 app_auth = APIRouter()
 
-
-# @app_auth.get("/", response_class=HTMLResponse)
-# def homes():
-#     return """
-#       <h1>Welcome to Testing WebSide.</h1>
-#       <a href="http://localhost:8000/google/login">login with google</a>
-#     """
-
-
 @app_auth.get("/google/login")
 async def google_login(request:Request):
     redirect_url = request.url_for( "google_callback")
@@ -57,7 +48,7 @@ def login_with_google(data:dict, response:Response, db:Session):
         key="access_token",
         value=token,
         httponly=True, 
-        secure=False, 
+        secure=True, 
         samesite="lax",
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES*60,
         path="/"
