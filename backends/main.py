@@ -19,10 +19,10 @@ app.add_middleware(
 )
 
 app.add_middleware(
-   SessionMiddleware,
-   secret_key="this-is-secret-key-one.", #hide it
-    same_site="none",
-    https_only=True
+    SessionMiddleware,
+    secret_key=settings.SECRET_KEY,
+    same_site="lax",
+    https_only=settings.COOKIE_SECURE,
 )
 
 Base.metadata.create_all(engine)

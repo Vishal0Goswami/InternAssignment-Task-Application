@@ -40,20 +40,14 @@ def login_with_google(data:dict, response:Response, db:Session):
     exp_time = datetime.now() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     token = jwt.encode({"_id":user.id, "exp":exp_time.timestamp()}, settings.SECRET_KEY, settings.ALGORITHM)
 
-    response = RedirectResponse(
-        url="http://localhost:5173/home",
-        status_code=302
-    )
+    response = RedirectResponse(url=f"{settings.FRONTEND_URL}/home", status_code=302)
     response.set_cookie(
         key="access_token",
         value=token,
-        httponly=True, 
-        secure=True, 
-        samesite="none",
-        max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES*60,
-        path="/"
+        httponly=True,
+        secure=settings.COOKIE_SECURE,
+        samesite="lax",
+        max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        path="/",
     )
-
-
     return response
-    
