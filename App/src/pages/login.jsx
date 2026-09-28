@@ -5,7 +5,7 @@ import { RiGoogleFill } from "@remixicon/react";
 
 const PageLogin = ()=>{
     const navigate = useNavigate();
-    const API_PATH = "https://internassignment-task-application.onrender.com";
+    const API_PATH = "https://internassignment-task-application-1.onrender.com";
 
     
     const [formData, setFormData] = useState({
@@ -81,7 +81,7 @@ const PageLogin = ()=>{
     const handleGoogleLogin = () => {
         try{
              setLoading(true)
-             window.location.href = "https://internassignment-task-application.onrender.com/google/login";
+             window.location.href = "https://internassignment-task-application-1.onrender.com/google/login";
         }catch(error){
             console.log(error)
         } finally{

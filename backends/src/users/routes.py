@@ -56,7 +56,7 @@ def login(body:loginValidate, response:Response, db:Session = Depends(get_db)):
        value=token,
        httponly=True,
        secure=True,  # Set True in production with HTTPS
-       samesite="lax",
+       samesite="none",
        max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES*60,
        path="/"
     )

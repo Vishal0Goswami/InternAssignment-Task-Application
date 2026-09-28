@@ -5,7 +5,7 @@ const SearchBar = ()=>{
     const navigate = useNavigate();
     
     const handleLogout = async () => {
-        await fetch("https://internassignment-task-application.onrender.com/logout", {
+        await fetch("https://internassignment-task-application-1.onrender.com/logout", {
             method: "POST",
             credentials: "include"
         });

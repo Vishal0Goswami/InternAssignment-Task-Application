@@ -13,7 +13,7 @@ app_auth = APIRouter()
 
 @app_auth.get("/google/login")
 async def google_login(request:Request):
-    redirect_url = request.url_for( "google_callback")
+    redirect_url = request.url_for("google_callback")
     return await oauth.google.authorize_redirect(request, redirect_url)
 
 
@@ -49,7 +49,7 @@ def login_with_google(data:dict, response:Response, db:Session):
         value=token,
         httponly=True, 
         secure=True, 
-        samesite="lax",
+        samesite="none",
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES*60,
         path="/"
     )

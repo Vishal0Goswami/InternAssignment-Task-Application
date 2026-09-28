@@ -12,7 +12,7 @@ const TableData = (props)=>{
             try {
                 setLoading(true)
                 const response = await fetch(
-                    `https://internassignment-task-application.onrender.com/tasks/isDone/${idx}`,
+                    `https://internassignment-task-application-1.onrender.com/tasks/isDone/${idx}`,
                     {
                         method: "PATCH",
                         credentials: "include",
